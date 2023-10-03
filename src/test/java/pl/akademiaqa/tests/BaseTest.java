@@ -3,6 +3,7 @@ package pl.akademiaqa.tests;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.assertions.PlaywrightAssertions;
 import com.microsoft.playwright.options.AriaRole;
+import com.microsoft.playwright.options.LoadState;
 import org.junit.jupiter.api.*;
 import pl.akademiaqa.factory.BrowserFactory;
 
@@ -105,12 +106,12 @@ public class BaseTest {
             loginPage.setViewportSize(1920, 1080);
 
             loginPage.navigate(getProperty("app.ui.url"));
-            loginPage.waitForCondition(() -> page.locator("#loading").isHidden(), new Page.WaitForConditionOptions().setTimeout(30000));
-            assertThat(loginPage.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Log In"))).isVisible();
+            loginPage.waitForCondition(() -> loginPage.locator("#loading").first().isHidden(), new Page.WaitForConditionOptions().setTimeout(30000));
+            assertThat(loginPage.locator("input#element-0")).isVisible();
 
-            loginPage.getByPlaceholder("Enter your email...").fill(getProperty("app.ui.username"));
-            loginPage.getByPlaceholder("Enter your password...").fill(getProperty("app.ui.password"));
-            loginPage.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Log in")).click();
+            loginPage.locator("input#element-0").fill(getProperty("app.ui.username"));
+            loginPage.locator("input#element-3").fill(getProperty("app.ui.password"));
+            loginPage.locator("button[type=submit]").click();
             PlaywrightAssertions.assertThat(loginPage.getByTestId("view_header")).isVisible();
 
             loginPage.close();

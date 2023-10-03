@@ -65,12 +65,12 @@ class AddCommentToTaskTest extends BaseTest {
         page.getByTestId("open-comment-editor-button").click();
         page.getByRole(AriaRole.PARAGRAPH).fill("Dodaję nagranie ze spotkania.");
 
-        page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Nagraj dźwięk")).click();
+        page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Nagraj")).click();
         page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Nagraj").setExact(true)).click();
         page.waitForTimeout(1000);
 
         page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Zatrzymaj")).click();
-        page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Załącz")).click();
+        page.locator("button[class=comments_drop_link]").last().click();
         page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Skomentuj")).click();
         page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Zamknij okno")).click();
 
